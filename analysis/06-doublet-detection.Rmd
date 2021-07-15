@@ -114,11 +114,11 @@ for (i in ids) {
   
   dat <- subset(dat, Top <= 10)
   
-  ids <- rownames(dat)
+  top <- rownames(dat)
   
   cat("#### Cluster", n, "\n")
 
-  plotHeatmap(sce, order_columns_by = "cluster", features = ids, center = TRUE, symmetric = TRUE)
+  plotHeatmap(sce, order_columns_by = "cluster", features = top, center = TRUE, symmetric = TRUE)
 
   cat("\n\n")
 
