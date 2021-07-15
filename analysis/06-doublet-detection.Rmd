@@ -27,13 +27,13 @@ Load required packages:
 
 ```{r}
 library(scater)
-library(scran)
+library(scDblFinder)
 ```
 
 Read experiment data:
 
 ```{r}
-sce <- readRDS("data/05-clustering.rds")
+sce <- readRDS("output/05-clustering.rds")
 ```
 
 ## Detection
@@ -51,19 +51,17 @@ run <- ifelse(num < 3, FALSE, TRUE)
 Identify potential clusters of doublet cells based on intermediate expression profiles:
 
 ```{r eval = run}
-dbl <- doubletCluster(sce, sce$cluster)
+set.seed(1010111111)
+
+dbl <- findDoubletClusters(sce, sce$cluster)
 ```
 
 Annotate clusters that have unusually low number of unique genes:
 
 ```{r eval = run}
-out <- isOutlier(dbl$N + 1, type = "lower", log = TRUE) # add pseudocount for log transform
+out <- isOutlier(dbl$num.de, type = "lower", log = TRUE)
 
-id1 <- dbl$source1[out]
-
-id2 <- dbl$source2[out]
-
-ids <- union(id1, id2)
+ids <- rownames(dbl)[out]
 
 sce$doublet_cluster <- ifelse(sce$cluster %in% ids, TRUE, FALSE)
 ```
@@ -109,15 +107,15 @@ for (n in names(sig)) {
 Identify potential doublet cells based on simulations of putative doublet expression profiles:
 
 ```{r}
-set.seed(578465190)
+set.seed(1110010110)
 
-dim <- reducedDim(sce)
+hvg <- rowData(sce)$selected
 
-num <- ncol(dim)
+dim <- ncol(reducedDim(sce))
 
-dbl <- doubletCells(sce, d = num)
+dbl <- computeDoubletDensity(sce, subset.row = hvg, d = dim)
 
-sce$doublet_score <- log10(dbl + 1)
+sce$doublet_score <- dbl
 ```
 
 Inspect the distribution of doublet scores on reduced dimensions:
@@ -144,8 +142,16 @@ plotUMAP(sce, colour_by = "doublet_score")
 
 ### Output
 
-Write experiment data:
+Save experiment object to disk:
 
 ```{r}
-saveRDS(sce, file = "data/06-doublet-detection.rds" )
+saveRDS(sce, file = "output/06-doublet-detection.rds" )
+```
+
+### Session
+
+Print session information:
+
+```{r}
+sessionInfo()
 ```
