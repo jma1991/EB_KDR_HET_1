@@ -515,16 +515,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjma1991EBKDRHET1tree9d62fcdc4d5b4779f1d395e2b7a6b3b196dd5256targetblank9d62fcda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jma1991/EB_KDR_HET_1/tree/9d62fcdc4d5b4779f1d395e2b7a6b3b196dd5256" target="_blank">9d62fcd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjma1991EBKDRHET1tree5b4a0f70b063002a4e7160b7adce332bc7234990targetblank5b4a0f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jma1991/EB_KDR_HET_1/tree/5b4a0f70b063002a4e7160b7adce332bc7234990" target="_blank">5b4a0f7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjma1991EBKDRHET1tree9d62fcdc4d5b4779f1d395e2b7a6b3b196dd5256targetblank9d62fcda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjma1991EBKDRHET1tree5b4a0f70b063002a4e7160b7adce332bc7234990targetblank5b4a0f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jma1991/EB_KDR_HET_1/tree/9d62fcdc4d5b4779f1d395e2b7a6b3b196dd5256" target="_blank">9d62fcd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jma1991/EB_KDR_HET_1/tree/5b4a0f70b063002a4e7160b7adce332bc7234990" target="_blank">5b4a0f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -588,6 +588,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/5b4a0f70b063002a4e7160b7adce332bc7234990/analysis/06-doublet-detection.Rmd" target="_blank">5b4a0f7</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+Build
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/c5dcd5b1f22547f2a9838b4c317b2647efb273bf/analysis/06-doublet-detection.Rmd" target="_blank">c5dcd5b</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+Build
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/8bab7d148c0c3a0b9f685cac9e8f8d20bb26508c/analysis/06-doublet-detection.Rmd" target="_blank">8bab7d1</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+Build
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/5c5e1f69d08e868e72d9cb50d7595d1774e5255e/docs/06-doublet-detection.html" target="_blank">5c5e1f6</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+Build
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -683,7 +751,63 @@ dbl &lt;- findDoubletClusters(sce, sce$cluster)</code></pre>
 ids &lt;- rownames(dbl)[out]
 
 sce$doublet_cluster &lt;- ifelse(sce$cluster %in% ids, TRUE, FALSE)</code></pre>
-<p>Check for clusters that have unusually low number of unique genes:</p>
+<p>Inspect the distribution of doublet clusters on reduced dimensions:</p>
+<div id="pca" class="section level4">
+<h4>PCA</h4>
+<pre class="r"><code>plotPCA(sce, colour_by = &quot;cluster&quot;, shape_by = &quot;doublet_cluster&quot;)</code></pre>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tsne" class="section level4">
+<h4>TSNE</h4>
+<pre class="r"><code>plotTSNE(sce, colour_by = &quot;cluster&quot;, shape_by = &quot;doublet_cluster&quot;)</code></pre>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="umap" class="section level4">
+<h4>UMAP</h4>
+<pre class="r"><code>plotUMAP(sce, colour_by = &quot;cluster&quot;, shape_by = &quot;doublet_cluster&quot;)</code></pre>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/5c5e1f69d08e868e72d9cb50d7595d1774e5255e/docs/figure/06-doublet-detection.Rmd/unnamed-chunk-9-1.png" target="_blank">5c5e1f6</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
+<p>Check for any doublet clusters:</p>
 <pre class="r"><code>run &lt;- any(sce$doublet_cluster)</code></pre>
 <p>Find significant marker genes between clusters:</p>
 <pre class="r"><code>res &lt;- findMarkers(sce, sce$cluster, direction = &quot;up&quot;)
@@ -692,60 +816,73 @@ sig &lt;- lapply(res, subset, FDR &lt; 0.1)
 
 sig &lt;- Filter(nrow, sig)</code></pre>
 <p>Inspect the expression of marker genes across clusters:</p>
-<pre class="r"><code>for (n in names(sig)) {
+<pre class="r"><code>for (i in ids) {
   
-  dat &lt;- sig[[n]]
+  dat &lt;- sig[[i]]
   
   dat &lt;- subset(dat, Top &lt;= 10)
   
-  ids &lt;- rownames(dat)
+  top &lt;- rownames(dat)
   
-  cat(&quot;#### Cluster&quot;, n, &quot;\n&quot;)
+  cat(&quot;#### Cluster&quot;, i, &quot;\n&quot;)
 
-  plotHeatmap(sce, order_columns_by = &quot;cluster&quot;, features = ids, center = TRUE, symmetric = TRUE)
+  plotHeatmap(sce, order_columns_by = &quot;cluster&quot;, features = top, center = TRUE, symmetric = TRUE)
 
   cat(&quot;\n\n&quot;)
 
 }</code></pre>
 <div id="cluster-1" class="section level4">
 <h4>Cluster 1</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/5c5e1f69d08e868e72d9cb50d7595d1774e5255e/docs/figure/06-doublet-detection.Rmd/unnamed-chunk-12-1.png" target="_blank">5c5e1f6</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="cluster-2" class="section level4">
-<h4>Cluster 2</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="cluster-3" class="section level4">
 <h4>Cluster 3</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cluster-4" class="section level4">
 <h4>Cluster 4</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-4.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cluster-5" class="section level4">
-<h4>Cluster 5</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-5.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cluster-6" class="section level4">
-<h4>Cluster 6</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cluster-7" class="section level4">
 <h4>Cluster 7</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-7.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cluster-8" class="section level4">
-<h4>Cluster 8</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-8.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cluster-9" class="section level4">
-<h4>Cluster 9</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-9.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cluster-10" class="section level4">
-<h4>Cluster 10</h4>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-9-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="by-cell" class="section level3 tabset">
@@ -761,20 +898,20 @@ dbl &lt;- computeDoubletDensity(sce, subset.row = hvg, d = dim)
 
 sce$doublet_score &lt;- dbl</code></pre>
 <p>Inspect the distribution of doublet scores on reduced dimensions:</p>
-<div id="pca" class="section level4">
+<div id="pca-1" class="section level4">
 <h4>PCA</h4>
 <pre class="r"><code>plotPCA(sce, colour_by = &quot;doublet_score&quot;)</code></pre>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="tsne" class="section level4">
+<div id="tsne-1" class="section level4">
 <h4>TSNE</h4>
 <pre class="r"><code>plotTSNE(sce, colour_by = &quot;doublet_score&quot;)</code></pre>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="umap" class="section level4">
+<div id="umap-1" class="section level4">
 <h4>UMAP</h4>
 <pre class="r"><code>plotUMAP(sce, colour_by = &quot;doublet_score&quot;)</code></pre>
-<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/06-doublet-detection.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
