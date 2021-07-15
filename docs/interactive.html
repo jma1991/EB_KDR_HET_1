@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="James Ashmore" />
 
 
-<title>License</title>
+<title>Interactive data exploration</title>
 
 <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -29,6 +30,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -232,6 +236,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -239,6 +306,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -320,7 +397,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">License</h1>
+<h1 class="title toc-ignore">Interactive data exploration</h1>
+<h4 class="author">James Ashmore</h4>
+<h4 class="date">15 July, 2021</h4>
 
 </div>
 
@@ -348,7 +427,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-07-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>EB_KDR_HET_1/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -370,6 +449,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200510code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200510)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200510code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200510)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -422,7 +561,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/license.Rmd</code>) and HTML (<code>docs/license.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/interactive.Rmd</code>) and HTML (<code>docs/interactive.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -448,554 +587,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
+Rmd
 </td>
 <td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/359a6d3964dceaac9e76f643be18814e6598bae7/docs/license.html" target="_blank">359a6d3</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/d3c27408ddcb9bb7623b9d56c77d00cdb4f82742/docs/license.html" target="_blank">d3c2740</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/961effa48dd9194dfc1b57466020f38da88199a7/docs/license.html" target="_blank">961effa</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/59c327809b1df2affa7a857bf59cf9303567989d/docs/license.html" target="_blank">59c3278</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/fca5a1ac8c9a16932d2119f1a98bd9c33f2580a0/docs/license.html" target="_blank">fca5a1a</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/5511c95e12dc2c874326c29cde57357a1257640a/docs/license.html" target="_blank">5511c95</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/195d16cf8b21781d47c2b57d9ba14f702c65bf4c/docs/license.html" target="_blank">195d16c</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/c78c00f51e30b67515d34e93701c559468e10a96/docs/license.html" target="_blank">c78c00f</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/5c5e1f69d08e868e72d9cb50d7595d1774e5255e/docs/license.html" target="_blank">5c5e1f6</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/785f612d73241b7c327f2f7bcbefbc27cace6905/docs/license.html" target="_blank">785f612</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/ce0a86125e7493c6e980c6ccc0c4299dfa85ce33/docs/license.html" target="_blank">ce0a861</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/463a250c27d78921862096400c9ffa77b766b228/docs/license.html" target="_blank">463a250</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/54a15a560af6650ef2003f51c9d2000c506e2c7e/docs/license.html" target="_blank">54a15a5</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/7372597d9142c38f4d1c8dd72bea0ff068b52003/docs/license.html" target="_blank">7372597</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/415314164656c5586aaadc84a459f8ab455e2911/docs/license.html" target="_blank">4153141</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/e5320473b8b5e2aad3dd4112b78456249178beb9/docs/license.html" target="_blank">e532047</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/9b9275b843e13ba5bf62bf819b40ca1caf11f2ce/docs/license.html" target="_blank">9b9275b</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/ea8189ba230939e56cedcee21eda90134315098c/docs/license.html" target="_blank">ea8189b</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/258471913eaef0d6b5a60ce5911cce042400c551/docs/license.html" target="_blank">2584719</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/3d1954b7f82926760135044793dfa32a38766f57/docs/license.html" target="_blank">3d1954b</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/a6d6bf1fe9e7de72dffa60fd8e217d9c460d3aef/docs/license.html" target="_blank">a6d6bf1</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/e3fb0b185ed7a90a934f7acab2bb0c65f8553464/docs/license.html" target="_blank">e3fb0b1</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/d55e2cf66a4718ee333e8fe736e98688c8f09603/docs/license.html" target="_blank">d55e2cf</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/074ff7d7d34eea2462799dca2e8c8a5488510703/docs/license.html" target="_blank">074ff7d</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/7a4d17cc97ee50d6b5b79c9836133194e75ff8a1/docs/license.html" target="_blank">7a4d17c</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/0d568cef3f038100d2b63b8f13e4547e1566fe20/docs/license.html" target="_blank">0d568ce</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/fea6b3e3690371d79f7d3aac0fc11e6cdcb6939d/docs/license.html" target="_blank">fea6b3e</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/201d2ef0b01c7505ab219ff8cfc1b75715df4e5d/docs/license.html" target="_blank">201d2ef</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/ffde2fad4282dea530ae1092ec4f97bbf8dc4697/docs/license.html" target="_blank">ffde2fa</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/a7568437d8b7984f78fce5626a4fd73544c47471/docs/license.html" target="_blank">a756843</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/29e6c10816d41393c7036d55fd77892ca002b883/docs/license.html" target="_blank">29e6c10</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/5cda9b4b362f30575c10b095f7f706c8d14e2942/docs/license.html" target="_blank">5cda9b4</a>
-</td>
-<td>
-James Ashmore
-</td>
-<td>
-2021-07-15
-</td>
-<td>
-Build
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jma1991/EB_KDR_HET_1/b9430391ba6a569a162dbaf84f7589c5cede00b5/docs/license.html" target="_blank">b943039</a>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/92474801fe6ba21eca6b0a9c89cfbe348ec6b90e/analysis/interactive.Rmd" target="_blank">9247480</a>
 </td>
 <td>
 James Ashmore
@@ -1012,7 +607,24 @@ Build
 Rmd
 </td>
 <td>
-<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/568cec84cb8e11bcecfb6b59089a4558527bb76f/analysis/license.Rmd" target="_blank">568cec8</a>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/30ff1f5fff29e86d26b76536423011f4ab241d9e/analysis/interactive.Rmd" target="_blank">30ff1f5</a>
+</td>
+<td>
+James Ashmore
+</td>
+<td>
+2021-07-15
+</td>
+<td>
+Build
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jma1991/EB_KDR_HET_1/blob/57fadedab93f41a4dc6d699483589c9734a828ca/analysis/interactive.Rmd" target="_blank">57faded</a>
 </td>
 <td>
 James Ashmore
@@ -1031,9 +643,172 @@ Build
 </div>
 </div>
 </div>
-<p>What license are you using for your code? See <a href="http://choosealicense.com/">choosealicense.com</a> for help deciding. It’s a convention to save a file <code>LICENSE</code> in the root of your Git repo that contains the license text.</p>
-<p>What license are you using for the written content on your site? It is traditional to choose a <a href="https://creativecommons.org/choose/">Creative Commons</a> license for this type of content.</p>
-<p>How should others cite your work? It’s a convention to save a file <code>CITATION</code> in the root of your Git repo that contains the citation information.</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>Set chunk options:</p>
+<pre class="r"><code>knitr::opts_chunk$set(eval = TRUE)</code></pre>
+<p>Load CRAN packages:</p>
+<pre class="r"><code>library(rsconnect)</code></pre>
+<p>Include Bioconductor package repositories:</p>
+<pre class="r"><code>options(repos = BiocManager::repositories())</code></pre>
+<pre><code>&#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see
+&#39;?repositories&#39; for details
+
+replacement repositories:
+    CRAN: http://cran.rstudio.com</code></pre>
+<p>Automatically answer yes to any user prompt:</p>
+<pre class="r"><code>options(needs.promptUser = FALSE)</code></pre>
+<p>Delete existing shiny directory:</p>
+<pre class="r"><code>unlink(&quot;shiny&quot;, recursive = TRUE)</code></pre>
+<p>Create shiny directory for interactive data exploration:</p>
+<pre class="r"><code>dir.create(&quot;shiny&quot;, showWarnings = FALSE, mode = &quot;0755&quot;)</code></pre>
+</div>
+<div id="applications" class="section level2 tabset">
+<h2 class="tabset">Applications</h2>
+<div id="annotated-data" class="section level3">
+<h3>Annotated data</h3>
+<p>Create iSEE directory for annotated data:</p>
+<pre class="r"><code>dir.create(&quot;shiny/annotated&quot;, showWarnings = FALSE, mode = &quot;0755&quot;)</code></pre>
+<p>Copy annotated data to iSEE directory:</p>
+<pre class="r"><code>file.copy(&quot;output/09-cell-annotation.rds&quot;, &quot;shiny/annotated/data.rds&quot;, overwrite = TRUE)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>Write code to iSEE application file:</p>
+<pre class="r r"><code># Load required packages
+library(iSEE)
+library(SingleCellExperiment)
+
+# Load experiment object
+sce &lt;- readRDS(&quot;data.rds&quot;)
+
+# Make feature names unique
+rownames(sce) &lt;- scuttle::uniquifyFeatureNames(rowData(sce)$gene_id, rowData(sce)$gene_name)
+
+# Define column data colours
+celltype_colours &lt;- function(n) {
+  c(
+    &quot;Allantois&quot; = &quot;#532C8A&quot;,
+    &quot;Anterior Primitive Streak&quot; = &quot;#C19F70&quot;,
+    &quot;Blood progenitors 1&quot; = &quot;#D9DECF&quot;,
+    &quot;Blood progenitors 2&quot; = &quot;#C9A997&quot;,
+    &quot;Cardiomyocytes&quot; = &quot;#B51D8D&quot;,
+    &quot;Caudal epiblast&quot; = &quot;#9E6762&quot;,
+    &quot;Caudal Mesoderm&quot; = &quot;#3F84AA&quot;,
+    &quot;Caudal neurectoderm&quot; = &quot;#354E23&quot;,
+    &quot;Def. endoderm&quot; = &quot;#F397C0&quot;,
+    &quot;Endothelium&quot; = &quot;#FF891C&quot;,
+    &quot;Epiblast&quot; = &quot;#635547&quot;,
+    &quot;Erythroid1&quot; = &quot;#C72228&quot;,
+    &quot;Erythroid2&quot; = &quot;#F79083&quot;,
+    &quot;Erythroid3&quot; = &quot;#EF4E22&quot;,
+    &quot;ExE ectoderm&quot; = &quot;#989898&quot;,
+    &quot;ExE endoderm&quot; = &quot;#7F6874&quot;,
+    &quot;ExE mesoderm&quot; = &quot;#8870AD&quot;,
+    &quot;Forebrain/Midbrain/Hindbrain&quot; = &quot;#647A4F&quot;,
+    &quot;Gut&quot; = &quot;#EF5A9D&quot;,
+    &quot;Haematoendothelial progenitors&quot; = &quot;#FBBE92&quot;,
+    &quot;Intermediate mesoderm&quot; = &quot;#139992&quot;,
+    &quot;Mesenchyme&quot; = &quot;#CC7818&quot;,
+    &quot;Mixed mesoderm&quot; = &quot;#DFCDE4&quot;,
+    &quot;Nascent mesoderm&quot; = &quot;#C594BF&quot;,
+    &quot;Neural crest&quot; = &quot;#C3C388&quot;,
+    &quot;NMP&quot; = &quot;#8EC792&quot;,
+    &quot;Notochord&quot; = &quot;#0F4A9C&quot;,
+    &quot;Paraxial mesoderm&quot; = &quot;#8DB5CE&quot;,
+    &quot;Parietal endoderm&quot; = &quot;#1A1A1A&quot;,
+    &quot;PGC&quot; = &quot;#FACB12&quot;,
+    &quot;Pharyngeal mesoderm&quot; = &quot;#C9EBFB&quot;,
+    &quot;Primitive Streak&quot; = &quot;#DABE99&quot;,
+    &quot;Rostral neurectoderm&quot; = &quot;#65A83E&quot;,
+    &quot;Somitic mesoderm&quot; = &quot;#005579&quot;,
+    &quot;Spinal cord&quot; = &quot;#CDE088&quot;,
+    &quot;Surface ectoderm&quot; = &quot;#F7F79E&quot;,
+    &quot;Visceral endoderm&quot; = &quot;#F6BFCB&quot;
+  )
+}
+
+# Set iSEE options
+iSEEOptions$set(downsample = TRUE)
+iSEEOptions$set(color.maxlevels = 37)
+
+# Define iSEE colours
+ecm &lt;- ExperimentColorMap(
+  colData = list(
+    celltype = celltype_colours
+  )
+)
+
+# Create iSEE object
+iSEE(sce, appTitle = &quot;EB_KDR_HET_1&quot;, colormap = ecm)</code></pre>
+<p>Deploy the iSEE application to the shiny server:</p>
+<pre class="r"><code>deployApp(appDir = &quot;shiny/annotated&quot;, appName = &quot;EB_KDR_HET_1&quot;, appTitle = &quot;EB_KDR_HET_1&quot;, launch.browser = FALSE, forceUpdate = TRUE)</code></pre>
+<pre><code>Preparing to deploy application...DONE
+Uploading bundle for application: 4388801...DONE
+Deploying bundle: 4822691 for application: 4388801 ...
+Waiting for task: 972320693
+  building: Processing bundle: 4822691
+  building: Parsing manifest
+  building: Building image: 5530034
+  building: Installing system dependencies
+  building: Fetching packages
+  building: Building package: sparseMatrixStats
+  building: Building package: scuttle
+  building: Installing packages
+  building: Installing files
+  building: Pushing image: 5530034
+  deploying: Starting instances
+  rollforward: Activating new instances
+  terminating: Stopping old instances
+Application successfully deployed to https://jashmore.shinyapps.io/EB_KDR_HET_1/</code></pre>
+<p>Allocate more memory to the iSEE application:</p>
+<pre class="r"><code>configureApp(appName = &quot;EB_KDR_HET_1&quot;, appDir = &quot;shiny/annotated&quot;, size = &quot;xxlarge&quot;)</code></pre>
+<pre><code>Preparing to deploy application...DONE
+Waiting for task: 972322935
+  deploying: Starting instances
+  rollforward: Activating new instances
+  terminating: Stopping old instances
+Application successfully deployed to https://jashmore.shinyapps.io/EB_KDR_HET_1/</code></pre>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<div id="session" class="section level3">
+<h3>Session</h3>
+<p>Print session information:</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+[1] rsconnect_0.8.18 workflowr_1.6.2 
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.7          pillar_1.6.1        compiler_4.0.2     
+ [4] bslib_0.2.5.1       later_1.2.0         BiocManager_1.30.16
+ [7] jquerylib_0.1.4     git2r_0.28.0        tools_4.0.2        
+[10] packrat_0.6.0       digest_0.6.27       jsonlite_1.7.2     
+[13] evaluate_0.14       lifecycle_1.0.0     tibble_3.1.2       
+[16] pkgconfig_2.0.3     rlang_0.4.11        curl_4.3.2         
+[19] yaml_2.2.1          xfun_0.24           stringr_1.4.0      
+[22] knitr_1.33          fs_1.5.0            vctrs_0.3.8        
+[25] sass_0.4.0          askpass_1.1         rprojroot_2.0.2    
+[28] glue_1.4.2          R6_2.5.0            fansi_0.5.0        
+[31] rmarkdown_2.9       magrittr_2.0.1      whisker_0.4        
+[34] promises_1.2.0.1    ellipsis_0.3.2      htmltools_0.5.1.1  
+[37] renv_0.13.2         httpuv_1.6.1        utf8_1.2.1         
+[40] stringi_1.7.2       openssl_1.4.4       crayon_1.4.1       </code></pre>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -1051,6 +826,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1083,6 +860,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
