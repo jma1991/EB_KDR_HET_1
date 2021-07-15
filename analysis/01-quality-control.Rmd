@@ -378,14 +378,14 @@ Plot the distribution of log-means across all genes:
 ```{r}
 ggplot(dat, aes(mean)) + 
   geom_histogram(bins = 100, colour = "black", fill = "grey") + 
-  scale_x_log10(n.breaks = 10) +
+  scale_x_log10(n.breaks = 10, limits = c(0.001, NA)) +
   theme_bw()
 ```
 
 Define lowly expressed genes using a mean threshold:
 
 ```{r}
-dat$low_mean <- dat$mean < 1
+dat$low_mean <- dat$mean < 0.1
 ```
 
 Tabulate the number of lowly expressed genes:
