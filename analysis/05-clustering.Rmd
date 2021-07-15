@@ -40,7 +40,7 @@ library(scran)
 Read experiment data:
 
 ```{r}
-sce <- readRDS("data/04-reduced-dimensions.rds")
+sce <- readRDS("output/04-reduced-dimensions.rds")
 ```
 
 ## Graph
@@ -50,6 +50,8 @@ sce <- readRDS("data/04-reduced-dimensions.rds")
 Perform clustering using rank-based weights followed by Walktrap clustering:
 
 ```{r}
+set.seed(0010111001)
+
 snn <- buildSNNGraph(sce, type = "rank", use.dimred = "PCA")
 
 cls <- cluster_walktrap(snn)$membership
@@ -78,13 +80,13 @@ pheatmap(mod, color = col, breaks = brk, cluster_rows = FALSE, cluster_cols = FA
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_walktrap", "sum", "detected", "subsets_EGFP_percent")
+var <- c("cluster_walktrap", "sum", "detected", "altexps_ERCC_percent")
 ```
 
 #### PCA
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotPCA(sce, colour_by = x))
+plt <- lapply(var, function(x) plotPCA(sce, colour_by = x) + coord_fixed())
 
 patchwork::wrap_plots(plt)
 ```
@@ -92,7 +94,7 @@ patchwork::wrap_plots(plt)
 #### TSNE
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x))
+plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -100,7 +102,7 @@ patchwork::wrap_plots(plt)
 #### UMAP
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x))
+plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -110,6 +112,8 @@ patchwork::wrap_plots(plt)
 Perform clustering using Jaccard-based weights followed by Louvain clustering:
 
 ```{r}
+set.seed(1000010001)
+
 snn <- buildSNNGraph(sce, type = "jaccard", use.dimred = "PCA")
 
 cls <- cluster_louvain(snn)$membership
@@ -138,13 +142,13 @@ pheatmap(mod, color = col, breaks = brk, cluster_rows = FALSE, cluster_cols = FA
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_louvain", "sum", "detected", "subsets_EGFP_percent")
+var <- c("cluster_louvain", "sum", "detected", "altexps_ERCC_percent")
 ```
 
 #### PCA
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotPCA(sce, colour_by = x))
+plt <- lapply(var, function(x) plotPCA(sce, colour_by = x) + coord_fixed())
 
 patchwork::wrap_plots(plt)
 ```
@@ -152,7 +156,7 @@ patchwork::wrap_plots(plt)
 #### TSNE
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x))
+plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -160,7 +164,7 @@ patchwork::wrap_plots(plt)
 #### UMAP
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x))
+plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -172,7 +176,7 @@ patchwork::wrap_plots(plt)
 Perform k-means clustering on the PCA matrix:
 
 ```{r}
-set.seed(186545432)
+set.seed(1011110101)
 
 dim <- reducedDim(sce, "PCA")
 
@@ -196,16 +200,22 @@ ggplot(dat, aes(var, val)) +
 Select optimal number of clusters:
 
 ```{r}
-set.seed(186545432)
+set.seed(1011110101)
 
 cls <- kmeans(dim, centers = num)
 
 sce$cluster_kmeans <- factor(cls$cluster)
 ```
 
-Plot the distances between clusters using their centroids:
+Check the number of clusters before plotting:
 
 ```{r}
+run <- ifelse(num > 1, TRUE, FALSE)
+```
+
+Plot the distances between clusters using their centroids:
+
+```{r eval = run}
 tab <- tabulate(cls$cluster)
 
 dat <- data.frame(wcss = cls$withinss, ncells = tab)
@@ -220,13 +230,13 @@ plot(hcl)
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_kmeans", "sum", "detected", "subsets_EGFP_percent")
+var <- c("cluster_kmeans", "sum", "detected", "altexps_ERCC_percent")
 ```
 
 #### PCA
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotPCA(sce, colour_by = x))
+plt <- lapply(var, function(x) plotPCA(sce, colour_by = x) + coord_fixed())
 
 patchwork::wrap_plots(plt)
 ```
@@ -234,7 +244,7 @@ patchwork::wrap_plots(plt)
 #### TSNE
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x))
+plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -242,7 +252,7 @@ patchwork::wrap_plots(plt)
 #### UMAP
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x))
+plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -254,6 +264,8 @@ patchwork::wrap_plots(plt)
 Perform hierarchical cluster analysis on the PCA data:
 
 ```{r}
+set.seed(0100001110)
+
 dim <- reducedDim(sce, "PCA")
 
 dst <- dist(dim)
@@ -280,13 +292,13 @@ plot(sil, col = col, border = NA)
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_hclust", "sum", "detected", "subsets_EGFP_percent")
+var <- c("cluster_hclust", "sum", "detected", "altexps_ERCC_percent")
 ```
 
 #### PCA
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotPCA(sce, colour_by = x))
+plt <- lapply(var, function(x) plotPCA(sce, colour_by = x) + coord_fixed())
 
 patchwork::wrap_plots(plt)
 ```
@@ -294,7 +306,7 @@ patchwork::wrap_plots(plt)
 #### TSNE
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x))
+plt <- lapply(var, function(x) plotTSNE(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -302,7 +314,7 @@ patchwork::wrap_plots(plt)
 #### UMAP
 
 ```{r, fig.height = 8, fig.width = 10}
-plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x))
+plt <- lapply(var, function(x) plotUMAP(sce, colour_by = x) + theme(aspect.ratio = 1))
 
 patchwork::wrap_plots(plt)
 ```
@@ -319,8 +331,16 @@ sce$cluster <- sce$cluster_louvain
 
 ### Output
 
-Write experiment data:
+Save experiment object to disk:
 
 ```{r}
-saveRDS(sce, file = "data/05-clustering.rds")
+saveRDS(sce, file = "output/05-clustering.rds")
+```
+
+### Session
+
+Print session information:
+
+```{r}
+sessionInfo()
 ```
