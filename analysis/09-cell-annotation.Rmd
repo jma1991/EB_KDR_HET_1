@@ -19,6 +19,7 @@ Define chunk options:
 knitr::opts_chunk$set(
   autodep    = TRUE,
   cache      = TRUE,
+  cache.lazy = FALSE,
   cache.path = "cache/09-cell-annotation.Rmd/",
   dev        = "png",
   error      = FALSE,
@@ -41,25 +42,31 @@ library(patchwork)
 library(pheatmap)
 ```
 
+Source custom functions:
+
+```{r}
+source("code/cleanEmbryoAtlasData.R")
+```
+
 Import experiment data:
 
 ```{r}
-sce <- readRDS("data/08-marker-detection.rds")
+sce <- readRDS("output/08-marker-detection.rds")
 ```
 
 ## Annotation
 
-### Known markers
+### Gene sets
 
-Read marker sets from disk and check they are present in the data:
+Read gene sets from disk and check they are present in the data:
 
 ```{r}
-all <- read.csv("data/cell-markers.csv", stringsAsFactors = FALSE)
+all <- read.csv("data/markers.csv", stringsAsFactors = FALSE)
 
 all <- all[all$gene_id %in% rowData(sce)$gene_id, ]
 ```
 
-Format marker sets for entry into the AUCell package:
+Format gene sets for entry into the AUCell package:
 
 ```{r}
 all <- split(all, all$gene_set)
@@ -69,7 +76,7 @@ all <- lapply(all, function(x) GeneSet(x$gene_id, setName = unique(x$gene_set)))
 all <- GeneSetCollection(all)
 ```
 
-Use the AUCell package to identify markers sets that are highly expressed in each cell:
+Use the AUCell package to identify gene sets that are highly expressed in each cell:
 
 ```{r}
 mat <- counts(sce)
@@ -98,15 +105,13 @@ sce$celltype_aucell <- lab
 Create results table for use with SingleR functions:
 
 ```{r}
-dat <- DataFrame(scores = I(res), labels = lab)
-
-dat <- dat[rowSds(dat$scores) > 0, ]
+dat <- DataFrame(scores = I(res), labels = lab, pruned.labels = lab, row.names = rownames(res))
 ```
 
 Create a heatmap of the AUCell assignment scores:
 
 ```{r}
-plotScoreHeatmap(dat, clusters = sce$cluster, fontsize = 8)
+plotScoreHeatmap(dat, clusters = sce$cluster,  fontsize = 8)
 ```
 
 Plot score distributions of labels:
@@ -115,51 +120,35 @@ Plot score distributions of labels:
 plotScoreDistribution(dat, show = "delta.med", ncol = 3, show.nmads = 3)
 ```
 
-### Gastrulation data
+### Reference data
 
-Load the gastrulation data package:
+Load the mouse gastrulation data package:
 
-```{r cache = FALSE}
+```{r}
 library(MouseGastrulationData)
 ```
 
-Process E8.25 samples from gastrulation data:
+Subset atlas sample metadata by embryonic stage:
 
-```{r cache = FALSE}
-sel <- subset(AtlasSampleMetadata, stage == "E8.25")
-
-ref <- EmbryoAtlasData(type = "processed", samples = sel$sample)
-
-ref <- logNormCounts(ref)
+```{r}
+AtlasSampleMetadata <- subset(AtlasSampleMetadata, stage == "E8.25")
 ```
 
-Remove cells with NA values for the given celltype label:
+Retrieve processed samples from embryo atlas data:
 
-```{r cache = FALSE}
-sel <- !is.na(ref$celltype)
-
-ref <- ref[, sel]
+```{r}
+ref <- EmbryoAtlasData(type = "processed", samples = AtlasSampleMetadata$sample)
 ```
 
-Remove cells marked as stripped nuclei:
+Clean processed samples from embryo atlas data:
 
-```{r cache = FALSE}
-sel <- !is.na(ref$stripped)
-
-ref <- ref[, sel]
-```
-
-Remove cells marked as doublets:
-
-```{r cache = FALSE}
-sel <- !is.na(ref$doublet)
-
-ref <- ref[, sel]
+```{r}
+ref <- cleanEmbryoAtlasData(ref)
 ```
 
 Identify marker genes for each cell type whilst blocking on sample:
 
-```{r cache = FALSE}
+```{r}
 res <- pairwiseWilcox(logcounts(ref), groups = ref$celltype, block = ref$sample)
 
 sig <- getTopMarkers(res$statistics, res$pairs)
@@ -167,7 +156,7 @@ sig <- getTopMarkers(res$statistics, res$pairs)
 
 Aggregate references within each celltype and sample combination:
 
-```{r cache = FALSE}
+```{r}
 lab <- paste(ref$celltype, ref$sample, sep = "-")
 
 ref <- aggregateReference(ref, labels = lab)
@@ -175,13 +164,13 @@ ref <- aggregateReference(ref, labels = lab)
 
 Remove sample label from aggregated reference names:
 
-```{r cache = FALSE}
+```{r}
 lab <- sapply(strsplit(colnames(ref), "-"), '[', 1)
 ```
 
 Return the best annotation for each cell in the test dataset:
 
-```{r cache = FALSE}
+```{r}
 ids <- rownames(sce) # save original feature names
 
 rownames(sce) <- rowData(sce)$gene_id # make feature names compatible
@@ -221,8 +210,16 @@ sce$celltype <- sce$celltype_singler
 
 ### Output
 
-Write experiment data:
+Save experiment object to disk:
 
 ```{r}
-saveRDS(sce, file = "data/09-cell-annotation.rds")
+saveRDS(sce, file = "output/09-cell-annotation.rds")
+```
+
+### Session
+
+Print session information:
+
+```{r}
+sessionInfo()
 ```
