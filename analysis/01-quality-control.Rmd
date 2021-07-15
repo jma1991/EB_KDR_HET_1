@@ -1,5 +1,5 @@
 ---
-title: "Quality Control"
+title: "Quality control"
 author: "James Ashmore"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: workflowr::wflow_html
@@ -30,13 +30,12 @@ knitr::opts_chunk$set(
 Load required packages:
 
 ```{r}
-library(BiocSingular)
-library(SingleCellExperiment)
 library(eulerr)
 library(patchwork)
 library(robustbase)
 library(scater)
 library(scran)
+library(scuttle)
 ```
 
 Read experiment data:
@@ -77,31 +76,14 @@ Compute QC metrics for each cell:
 sce <- addPerCellQC(sce, subsets = list(MT = mit, EGFP = gfp))
 ```
 
-Inspect the distributions of QC metrics from all cells:
+Inspect the distributions of QC metrics:
 
 ```{r, fig.height = 9, fig.width = 10}
 wrap_plots(
-  plotColData(sce, "sum", colour_by = "whitelist") + scale_y_log10() + ggtitle("Total count"),
-  plotColData(sce, "detected", colour_by = "whitelist") + scale_y_log10() + ggtitle("Detected features"),
-  plotColData(sce, "subsets_MT_percent", colour_by = "whitelist") + ggtitle("MT percent"),
-  plotColData(sce, "subsets_EGFP_percent", colour_by = "whitelist") + ggtitle("EGFP percent")
-)
-```
-
-Subset experiment to only those cells that are included in the whitelist from alevin:
-
-```{r}
-sce <- sce[, sce$whitelist]
-```
-
-Inspect the distribution of QC metrics from whitelist cells:
-
-```{r, fig.height = 9, fig.width = 10}
-wrap_plots(
-  plotColData(sce, "sum", colour_by = "whitelist") + scale_y_log10() + ggtitle("Total count"),
-  plotColData(sce, "detected", colour_by = "whitelist") + scale_y_log10() + ggtitle("Detected features"),
-  plotColData(sce, "subsets_MT_percent", colour_by = "whitelist") + ggtitle("MT percent"),
-  plotColData(sce, "subsets_EGFP_percent", colour_by = "whitelist") + ggtitle("EGFP percent")
+  plotColData(sce, "sum") + scale_y_log10() + ggtitle("Total count"),
+  plotColData(sce, "detected") + scale_y_log10() + ggtitle("Detected features"),
+  plotColData(sce, "subsets_MT_percent") + ggtitle("MT percent"),
+  plotColData(sce, "altexps_EGFP_percent") + ggtitle("EGFP percent")
 )
 ```
 
@@ -113,7 +95,7 @@ Calculate dimenionality reduction data:
 set.seed(408633136)
 sce <- computeLibraryFactors(sce)
 sce <- logNormCounts(sce)
-sce <- runPCA(sce, BSPARAM = ExactParam())
+sce <- runPCA(sce, BSPARAM = BiocSingular::ExactParam())
 sce <- runTSNE(sce, dimred = "PCA")
 sce <- runUMAP(sce, dimred = "PCA")
 ```
@@ -127,7 +109,7 @@ patchwork::wrap_plots(
   plotPCA(sce, colour_by = "sum") + ggtitle("Total count"),
   plotPCA(sce, colour_by = "detected") + ggtitle("Detected features"),
   plotPCA(sce, colour_by = "subsets_MT_percent") + ggtitle("MT percent"),
-  plotPCA(sce, colour_by = "subsets_EGFP_percent") + ggtitle("EGFP percent"),
+  plotPCA(sce, colour_by = "altexps_EGFP_percent") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -139,7 +121,7 @@ patchwork::wrap_plots(
   plotTSNE(sce, colour_by = "sum") + ggtitle("Total count"),
   plotTSNE(sce, colour_by = "detected") + ggtitle("Detected features"),
   plotTSNE(sce, colour_by = "subsets_MT_percent") + ggtitle("MT percent"),
-  plotTSNE(sce, colour_by = "subsets_EGFP_percent") + ggtitle("EGFP percent"),
+  plotTSNE(sce, colour_by = "altexps_EGFP_percent") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -151,7 +133,7 @@ patchwork::wrap_plots(
   plotUMAP(sce, colour_by = "sum") + ggtitle("Total count"),
   plotUMAP(sce, colour_by = "detected") + ggtitle("Detected features"),
   plotUMAP(sce, colour_by = "subsets_MT_percent") + ggtitle("MT percent"),
-  plotUMAP(sce, colour_by = "subsets_EGFP_percent") + ggtitle("EGFP percent"),
+  plotUMAP(sce, colour_by = "altexps_EGFP_percent") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -181,7 +163,7 @@ wrap_plots(
   plotColData(sce, "sum", colour_by = "manual_discard") + scale_y_log10() + ggtitle("Total count"),
   plotColData(sce, "detected", colour_by = "manual_discard") + scale_y_log10() + ggtitle("Detected features"),
   plotColData(sce, "subsets_MT_percent", colour_by = "manual_discard") + ggtitle("MT percent"),
-  plotColData(sce, "subsets_EGFP_percent", colour_by = "manual_discard") + ggtitle("EGFP percent")
+  plotColData(sce, "altexps_EGFP_percent", colour_by = "manual_discard") + ggtitle("EGFP percent")
 )
 ```
 
@@ -194,7 +176,7 @@ patchwork::wrap_plots(
   plotPCA(sce, colour_by = "sum", shape_by = "manual_discard") + ggtitle("Total count"),
   plotPCA(sce, colour_by = "detected", shape_by = "manual_discard") + ggtitle("Detected features"),
   plotPCA(sce, colour_by = "subsets_MT_percent", shape_by = "manual_discard") + ggtitle("MT percent"),
-  plotPCA(sce, colour_by = "subsets_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
+  plotPCA(sce, colour_by = "altexps_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -206,7 +188,7 @@ patchwork::wrap_plots(
   plotTSNE(sce, colour_by = "sum", shape_by = "manual_discard") + ggtitle("Total count"),
   plotTSNE(sce, colour_by = "detected", shape_by = "manual_discard") + ggtitle("Detected features"),
   plotTSNE(sce, colour_by = "subsets_MT_percent", shape_by = "manual_discard") + ggtitle("MT percent"),
-  plotTSNE(sce, colour_by = "subsets_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
+  plotTSNE(sce, colour_by = "altexps_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -218,7 +200,7 @@ patchwork::wrap_plots(
   plotUMAP(sce, colour_by = "sum", shape_by = "manual_discard") + ggtitle("Total count"),
   plotUMAP(sce, colour_by = "detected", shape_by = "manual_discard") + ggtitle("Detected features"),
   plotUMAP(sce, colour_by = "subsets_MT_percent", shape_by = "manual_discard") + ggtitle("MT percent"),
-  plotUMAP(sce, colour_by = "subsets_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
+  plotUMAP(sce, colour_by = "altexps_EGFP_percent", shape_by = "manual_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -228,7 +210,7 @@ patchwork::wrap_plots(
 The next approach is to identify cells that are outliers based on the median absolute deviation for the QC metrics:
 
 ```{r}
-dat <- quickPerCellQC(colData(sce), sub.fields = c("subsets_MT_percent"))
+dat <- quickPerCellQC(colData(sce), sub.fields = "subsets_MT_percent")
 
 sce$adaptive_discard <- dat$discard
 ```
@@ -240,7 +222,7 @@ wrap_plots(
   plotColData(sce, "sum", colour_by = "adaptive_discard") + scale_y_log10() + ggtitle("Total count"),
   plotColData(sce, "detected", colour_by = "adaptive_discard") + scale_y_log10() + ggtitle("Detected features"),
   plotColData(sce, "subsets_MT_percent", colour_by = "adaptive_discard") + ggtitle("MT percent"),
-  plotColData(sce, "subsets_EGFP_percent", colour_by = "adaptive_discard") + ggtitle("EGFP percent")
+  plotColData(sce, "altexps_EGFP_percent", colour_by = "adaptive_discard") + ggtitle("EGFP percent")
 )
 ```
 
@@ -253,7 +235,7 @@ patchwork::wrap_plots(
   plotPCA(sce, colour_by = "sum", shape_by = "adaptive_discard") + ggtitle("Total count"),
   plotPCA(sce, colour_by = "detected", shape_by = "adaptive_discard") + ggtitle("Detected features"),
   plotPCA(sce, colour_by = "subsets_MT_percent", shape_by = "adaptive_discard") + ggtitle("MT percent"),
-  plotPCA(sce, colour_by = "subsets_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
+  plotPCA(sce, colour_by = "altexps_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -265,7 +247,7 @@ patchwork::wrap_plots(
   plotTSNE(sce, colour_by = "sum", shape_by = "adaptive_discard") + ggtitle("Total count"),
   plotTSNE(sce, colour_by = "detected", shape_by = "adaptive_discard") + ggtitle("Detected features"),
   plotTSNE(sce, colour_by = "subsets_MT_percent", shape_by = "adaptive_discard") + ggtitle("MT percent"),
-  plotTSNE(sce, colour_by = "subsets_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
+  plotTSNE(sce, colour_by = "altexps_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -277,7 +259,7 @@ patchwork::wrap_plots(
   plotUMAP(sce, colour_by = "sum", shape_by = "adaptive_discard") + ggtitle("Total count"),
   plotUMAP(sce, colour_by = "detected", shape_by = "adaptive_discard") + ggtitle("Detected features"),
   plotUMAP(sce, colour_by = "subsets_MT_percent", shape_by = "adaptive_discard") + ggtitle("MT percent"),
-  plotUMAP(sce, colour_by = "subsets_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
+  plotUMAP(sce, colour_by = "altexps_EGFP_percent", shape_by = "adaptive_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -300,7 +282,7 @@ wrap_plots(
   plotColData(sce, "sum", colour_by = "outlier_discard") + scale_y_log10() + ggtitle("Total count"),
   plotColData(sce, "detected", colour_by = "outlier_discard") + scale_y_log10() + ggtitle("Detected features"),
   plotColData(sce, "subsets_MT_percent", colour_by = "outlier_discard") + ggtitle("MT percent"),
-  plotColData(sce, "subsets_EGFP_percent", colour_by = "outlier_discard") + ggtitle("EGFP percent")
+  plotColData(sce, "altexps_EGFP_percent", colour_by = "outlier_discard") + ggtitle("EGFP percent")
 )
 ```
 
@@ -313,7 +295,7 @@ patchwork::wrap_plots(
   plotPCA(sce, colour_by = "sum", shape_by = "outlier_discard") + ggtitle("Total count"),
   plotPCA(sce, colour_by = "detected", shape_by = "outlier_discard") + ggtitle("Detected features"),
   plotPCA(sce, colour_by = "subsets_MT_percent", shape_by = "outlier_discard") + ggtitle("MT percent"),
-  plotPCA(sce, colour_by = "subsets_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
+  plotPCA(sce, colour_by = "altexps_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -325,7 +307,7 @@ patchwork::wrap_plots(
   plotTSNE(sce, colour_by = "sum", shape_by = "outlier_discard") + ggtitle("Total count"),
   plotTSNE(sce, colour_by = "detected", shape_by = "outlier_discard") + ggtitle("Detected features"),
   plotTSNE(sce, colour_by = "subsets_MT_percent", shape_by = "outlier_discard") + ggtitle("MT percent"),
-  plotTSNE(sce, colour_by = "subsets_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
+  plotTSNE(sce, colour_by = "altexps_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -337,7 +319,7 @@ patchwork::wrap_plots(
   plotUMAP(sce, colour_by = "sum", shape_by = "outlier_discard") + ggtitle("Total count"),
   plotUMAP(sce, colour_by = "detected", shape_by = "outlier_discard") + ggtitle("Detected features"),
   plotUMAP(sce, colour_by = "subsets_MT_percent", shape_by = "outlier_discard") + ggtitle("MT percent"),
-  plotUMAP(sce, colour_by = "subsets_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
+  plotUMAP(sce, colour_by = "altexps_EGFP_percent", shape_by = "outlier_discard") + ggtitle("EGFP percent"),
   ncol = 2
 )
 ```
@@ -378,14 +360,14 @@ Plot the distribution of log-means across all genes:
 ```{r}
 ggplot(dat, aes(mean)) + 
   geom_histogram(bins = 100, colour = "black", fill = "grey") + 
-  scale_x_log10(n.breaks = 10, limits = c(0.001, NA)) +
+  scale_x_log10(n.breaks = 10) +
   theme_bw()
 ```
 
 Define lowly expressed genes using a mean threshold:
 
 ```{r}
-dat$low_mean <- dat$mean < 0.1
+dat$low_mean <- dat$mean < 1
 ```
 
 Tabulate the number of lowly expressed genes:
@@ -443,6 +425,16 @@ After quality control we have a dataset with `r ncol(sce)` cells and `r nrow(sce
 
 ### Output
 
+Save experiment object to disk:
+
 ```{r}
-saveRDS(sce, "data/01-quality-control.rds")
+saveRDS(sce, "output/01-quality-control.rds")
+```
+
+### Session
+
+Print session information:
+
+```{r}
+sessionInfo()
 ```
