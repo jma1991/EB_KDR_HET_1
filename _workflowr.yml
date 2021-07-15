@@ -6,3 +6,6 @@ seed: 20200510
 
 # _workflowr.yml. See ?rmarkdown::render for details.
 knit_root_dir: "."
+
+# Change the session information function.
+sessioninfo: ""
