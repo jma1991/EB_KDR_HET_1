@@ -36,7 +36,7 @@ library(org.Mm.eg.db)
 Import experiment data:
 
 ```{r}
-sce <- readRDS("data/06-doublet-detection.rds")
+sce <- readRDS("output/06-doublet-detection.rds")
 ```
 
 ## Expression
@@ -51,7 +51,7 @@ ids <- rownames(sce)[idx]
 plotHeatmap(sce, features = sort(ids), order_columns_by = "cluster", cluster_rows = FALSE)
 ```
 
-Inspect the relative expession of cell-cycle related genes across the clusters:
+Inspect the relative expression of cell-cycle related genes across the clusters:
 
 ```{r}
 org <- select(org.Mm.eg.db, keys = "GO:0007049", keytype = "GOALL", column = "ENSEMBL")
@@ -123,8 +123,16 @@ plotUMAP(sce, colour_by = "phase", text_by = "cluster")
 
 ### Output
 
-Write experiment data:
+Save experiment object to disk:
 
 ```{r}
-saveRDS(sce, file = "data/07-cell-cycle.rds")
+saveRDS(sce, file = "output/07-cell-cycle.rds")
+```
+
+### Session
+
+Print session information:
+
+```{r}
+sessionInfo()
 ```
