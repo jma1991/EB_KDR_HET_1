@@ -27,6 +27,7 @@ Load required packages:
 
 ```{r}
 library(scater)
+library(scran)
 library(scDblFinder)
 ```
 
