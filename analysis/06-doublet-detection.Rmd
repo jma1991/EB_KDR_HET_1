@@ -87,7 +87,7 @@ plotTSNE(sce, colour_by = "cluster", shape_by = "doublet_cluster")
 plotUMAP(sce, colour_by = "cluster", shape_by = "doublet_cluster")
 ```
 
-###
+### {.tabset}
 
 Check for any doublet clusters:
 
