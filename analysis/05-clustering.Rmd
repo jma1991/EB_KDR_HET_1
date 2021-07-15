@@ -80,7 +80,7 @@ pheatmap(mod, color = col, breaks = brk, cluster_rows = FALSE, cluster_cols = FA
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_walktrap", "sum", "detected", "altexps_ERCC_percent")
+var <- c("cluster_walktrap", "sum", "detected", "subsets_EGFP_percent")
 ```
 
 #### PCA
@@ -142,7 +142,7 @@ pheatmap(mod, color = col, breaks = brk, cluster_rows = FALSE, cluster_cols = FA
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_louvain", "sum", "detected", "altexps_ERCC_percent")
+var <- c("cluster_louvain", "sum", "detected", "subsets_EGFP_percent")
 ```
 
 #### PCA
@@ -230,7 +230,7 @@ plot(hcl)
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_kmeans", "sum", "detected", "altexps_ERCC_percent")
+var <- c("cluster_kmeans", "sum", "detected", "subsets_EGFP_percent")
 ```
 
 #### PCA
@@ -292,7 +292,7 @@ plot(sil, col = col, border = NA)
 Inspect dimensionality reduction plots coloured by explanatory variables:
 
 ```{r}
-var <- c("cluster_hclust", "sum", "detected", "altexps_ERCC_percent")
+var <- c("cluster_hclust", "sum", "detected", "subsets_EGFP_percent")
 ```
 
 #### PCA
