@@ -74,15 +74,6 @@ sce <- readRDS("data.rds")
 # Make feature names unique
 rownames(sce) <- scuttle::uniquifyFeatureNames(rowData(sce)$gene_id, rowData(sce)$gene_name)
 
-# Define column data variables
-sce$Etv2 <- counts(sce)["Etv2", ] > 0
-sce$Kdr <- counts(sce)["Kdr", ] > 0
-sce$Runx1 <- counts(sce)["Runx1", ] > 0
-sce$Ednrb <- counts(sce)["Ednrb", ] > 0
-sce$Etv2_AND_Kdr <- sce$Etv2 & sce$Kdr
-sce$Etv2_AND_Kdr_AND_Runx1 <- sce$Etv2_AND_Kdr & sce$Runx1
-sce$Etv2_AND_Ednrb <- sce$Etv2 & sce$Ednrb
-
 # Define column data colours
 celltype_colours <- function(n) {
   c(
@@ -126,10 +117,6 @@ celltype_colours <- function(n) {
   )
 }
 
-boolean_colours <- function(n) {
-  c("TRUE" = "#E15759", "FALSE" = "#BAB0AC")
-}
-
 # Set iSEE options
 iSEEOptions$set(downsample = TRUE)
 iSEEOptions$set(color.maxlevels = 37)
@@ -137,14 +124,7 @@ iSEEOptions$set(color.maxlevels = 37)
 # Define iSEE colours
 ecm <- ExperimentColorMap(
   colData = list(
-    celltype = celltype_colours,
-    Etv2 = boolean_colours,
-    Kdr = boolean_colours,
-    Runx1 = boolean_colours,
-    Ednrb = boolean_colours,
-    Etv2_AND_Kdr = boolean_colours,
-    Etv2_AND_Kdr_AND_Runx1 = boolean_colours,
-    Etv2_AND_Ednrb = boolean_colours
+    celltype = celltype_colours
   )
 )
 
