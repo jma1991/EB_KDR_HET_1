@@ -15,7 +15,7 @@ In this document we are going to perform quality control on the cells.
 
 Set chunk options:
 
-```{r knitr}
+```{r}
 knitr::opts_chunk$set(
   autodep    = TRUE,
   cache      = TRUE,
@@ -228,7 +228,7 @@ patchwork::wrap_plots(
 The next approach is to identify cells that are outliers based on the median absolute deviation for the QC metrics:
 
 ```{r}
-dat <- quickPerCellQC(sce, percent_subsets = "subsets_MT_percent")
+dat <- quickPerCellQC(colData(sce), sub.fields = c("subsets_MT_percent"))
 
 sce$adaptive_discard <- dat$discard
 ```
