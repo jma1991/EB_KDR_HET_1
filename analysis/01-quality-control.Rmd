@@ -110,7 +110,7 @@ wrap_plots(
 Calculate dimenionality reduction data:
 
 ```{r}
-set.seed(408633136)
+set.seed(1110010101)
 sce <- computeLibraryFactors(sce)
 sce <- logNormCounts(sce)
 sce <- runPCA(sce, BSPARAM = BiocSingular::ExactParam())
