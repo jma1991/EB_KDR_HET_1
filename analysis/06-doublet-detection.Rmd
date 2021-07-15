@@ -67,7 +67,29 @@ ids <- rownames(dbl)[out]
 sce$doublet_cluster <- ifelse(sce$cluster %in% ids, TRUE, FALSE)
 ```
 
-Check for clusters that have unusually low number of unique genes:
+Inspect the distribution of doublet clusters on reduced dimensions:
+
+#### PCA
+
+```{r}
+plotPCA(sce, colour_by = "cluster", shape_by = "doublet_cluster")
+```
+
+#### TSNE
+
+```{r}
+plotTSNE(sce, colour_by = "cluster", shape_by = "doublet_cluster")
+```
+
+#### UMAP
+
+```{r}
+plotUMAP(sce, colour_by = "cluster", shape_by = "doublet_cluster")
+```
+
+###
+
+Check for any doublet clusters:
 
 ```{r eval = run}
 run <- any(sce$doublet_cluster)
@@ -86,9 +108,9 @@ sig <- Filter(nrow, sig)
 Inspect the expression of marker genes across clusters:
 
 ```{r eval = run, results = "asis"}
-for (n in names(sig)) {
+for (i in ids) {
   
-  dat <- sig[[n]]
+  dat <- sig[[i]]
   
   dat <- subset(dat, Top <= 10)
   
